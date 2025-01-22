@@ -1,21 +1,21 @@
 [id='running-a-script-to-install-storage']
-= Running a script to install local object storage buckets and create data connections
+= Running a script to install local object storage buckets and create connections
 
 For convenience, run a script (provided in the following procedure) that automatically completes these tasks:
 
 * Creates a Minio instance in your project.
 * Creates two storage buckets in that Minio instance.
 * Generates a random user id and password for your Minio instance.
-* Creates two data connections in your project, one for each bucket and both using the same credentials.
+* Creates two connections in your project, one for each bucket and both using the same credentials.
 * Installs required network policies for service mesh functionality.
 
 The script is based on a https://ai-on-openshift.io/tools-and-applications/minio/minio/[guide for deploying Minio].
 
 IMPORTANT: The Minio-based Object Storage that the script creates is *not* meant for production usage.
 
-NOTE: If you want to connect to your own storage, see xref:creating-data-connections-to-storage.adoc[Creating data connections to your own S3-compatible object storage].
+NOTE: If you want to connect to your own storage, see xref:creating-connections-to-storage.adoc[Creating connections to your own S3-compatible object storage].
 
-.Prerequisite
+.Prerequisites
 
 You must know the OpenShift resource name for your data science project so that you run the provided script in the correct project. To get the project's resource name:
 
@@ -37,7 +37,7 @@ oc apply -n <your-project-name/> -f https://github.com/rh-aiservices-bu/fraud-de
 
 . In the {productname-short} dashboard, click the application launcher icon and then select the *OpenShift Console* option.
 +
-image::projects/ds-project-ocp-link.png[OpenShift Console Link]
+image::projects/ds-project-ocp-link.png[OpenShift Console Link, 600]
 
 . In the OpenShift console, click *+* in the top navigation bar.
 +
@@ -53,7 +53,7 @@ image::projects/ocp-console-project-selected.png[Selected project]
 
 . Copy the following code and paste it into the *Import YAML* editor.
 +
-*Note:* This code gets and applies the `setup-s3-no-sa.yaml` file.
+NOTE: This code gets and applies the `setup-s3-no-sa.yaml` file.
 +
 [.lines_space]
 [.console-input]
@@ -89,7 +89,7 @@ spec:
         - args:
             - -ec
             - |-
-              echo -n 'Setting up Minio instance and data connections'
+              echo -n 'Setting up Minio instance and connections'
               oc apply -f https://github.com/rh-aiservices-bu/fraud-detection/raw/main/setup/setup-s3-no-sa.yaml
           command:
             - /bin/bash
@@ -105,15 +105,22 @@ spec:
 
 .Verification
 
-You should see a "Resources successfully created" message and the following resources listed:
-
+. In the OpenShift console, you should see a "Resources successfully created" message and the following resources listed:
++
 * `demo-setup`
 * `demo-setup-edit`
-* `create s3-storage`
+* `create-s3-storage`
+
+.  In the {productname-short} dashboard:
+
+.. Select *Data Science Projects* and then click the name of your project, *Fraud detection*.
+.. Click *Connections*. You should see two connections listed: `My Storage` and `Pipeline Artifacts`.
++ 
+image::projects/ds-project-connections.png[Connections for Fraud Detection]
 
 
 .Next steps
 
-* Configure a pipeline server as described in xref:enabling-data-science-pipelines.adoc[Enabling data science pipelines]
+If you want to complete the pipelines section of this {deliverable}, go to xref:enabling-data-science-pipelines.adoc[Enabling data science pipelines].
 
-* Create a workbench and select a notebook image as described in xref:creating-a-workbench.adoc[Creating a workbench]
+Otherwise, skip to xref:creating-a-workbench.adoc[Creating a workbench].

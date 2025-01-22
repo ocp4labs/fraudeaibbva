@@ -1,9 +1,11 @@
 [id='importing-files-into-jupyter']
 = Importing the {deliverable} files into the Jupyter environment
 
+:git-version: main
+
 The Jupyter environment is a web-based environment, but everything you do inside it happens on *{productname-long}* and is powered by the *OpenShift* cluster. This means that, without having to install and maintain anything on your own computer, and without disposing of valuable local resources such as CPU, GPU and RAM, you can conduct your Data Science work in this powerful and stable managed environment.
 
-.Prerequisite
+.Prerequisites
 
 You created a workbench, as described in xref:creating-a-workbench.adoc[Creating a workbench and selecting a Notebook image].
 
@@ -21,7 +23,7 @@ This file-browser window shows the files and folders that are saved inside your 
 
 .. On the toolbar, click the *Git Clone* icon:
 +
-image::workbenches/jupyter-git-icon.png[Git Clone icon, 300]
+image::workbenches/jupyter-git-icon.png[Git Clone icon, 200]
 
 .. Enter the following {deliverable} Git *https* URL:
 +
@@ -32,17 +34,26 @@ image::workbenches/jupyter-git-icon.png[Git Clone icon, 300]
 https://github.com/rh-aiservices-bu/fraud-detection.git
 ----
 +
-image::workbenches/jupyter-git-modal.png[Git Modal, 300]
+image::workbenches/jupyter-git-modal.png[Git Modal, 200]
 
-.. Check the *Include submodules* option.
+.. Check the *Include submodules* option, and then click *Clone*.
 
-.. Click *Clone*.
+.. In the file browser, double-click the newly-created *fraud-detection* folder.
++
+image::workbenches/jupyter-file-browser.png[Jupyter file browser, 300]
+
+.. In the left navigation bar, click the *Git* icon, and then click *Current Branch* to expand the branches and tags selector panel.
+... On the *Branches* tab, in the *Filter* field, enter *{git-version}*.
++
+image::workbenches/jupyter-git-icon-version.png[Git Clone icon, 200]
++
+// the {git-version} attribute value is defined at the top of this file
+.. Select *origin/{git-version}*. 
++
+The current branch changes to *{git-version}*.
+
 
 .Verification
-
-Double-click the newly-created folder, `fraud-detection`:
-
-image::workbenches/jupyter-file-browser.png[Jupyter file browser, 300]
 
 In the file browser, you should see the notebooks that you cloned from Git.
 
